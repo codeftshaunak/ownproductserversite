@@ -26,6 +26,8 @@ async function run() {
         try {
                 await client.connect();
                 const productCollection = client.db('ownproduct').collection('all_products');
+                const orderCollection = client.db('ownproduct').collection('orders');
+
                 app.get('/products', async (req, res) => {
                         const query = {};
                         const cursor = productCollection.find(query);
@@ -40,6 +42,13 @@ async function run() {
                         }
                         const product = await productCollection.findOne(query);
                         res.send(product);
+                })
+
+                //Post
+                app.post('/order', async (req, res) => {
+                        const orders = req.body;
+                        const result = await orderCollection.insertOne(orders);
+                        res.send(result)
                 })
 
         } finally {}
