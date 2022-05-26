@@ -26,14 +26,14 @@ async function run() {
         try {
                 await client.connect();
                 const productCollection = client.db('ownproduct').collection('all_products');
-                app.get('/productsss', async (req, res) => {
+                app.get('/products', async (req, res) => {
                         const query = {};
                         const cursor = productCollection.find(query);
                         const products = await cursor.toArray();
                         res.send(products);
                 })
 
-                app.get('/product/:id', async (req, res) => {
+                app.get('/product/:idf', async (req, res) => {
                         const id = req.params.id;
                         const query = {
                                 _id: ObjectId(id)
