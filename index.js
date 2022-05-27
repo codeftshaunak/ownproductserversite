@@ -76,8 +76,14 @@ async function run() {
                         res.send(result)
                 })
 
-                //Get Order By Email
+                //Get All Order
                 app.get('/order', verifyJWT, async (req, res) => {
+                        const users = await userCollection.find().toArray();
+                        res.send(users)
+                })
+
+                //Get Order By Email
+                app.get('/order/:email', verifyJWT, async (req, res) => {
                         const email = req.query.email;
                         const query = {
                                 email: email
@@ -129,7 +135,7 @@ async function run() {
                         })
                 });
 
-                //Method For Get User
+                //Method For Get User By Email
                 app.get('/user/:email', async (req, res) => {
                         const email = req.params.email;
                         const query = {
@@ -154,6 +160,7 @@ async function run() {
                         res.send(result)
                 })
 
+                //Get All Users
                 app.get('/user', verifyJWT, async (req, res) => {
                         const users = await userCollection.find().toArray();
                         res.send(users)
