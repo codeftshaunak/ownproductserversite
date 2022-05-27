@@ -77,13 +77,13 @@ async function run() {
                 })
 
                 //Get All Order
-                app.get('/order', verifyJWT, async (req, res) => {
+                app.get('/order', async (req, res) => {
                         const users = await userCollection.find().toArray();
                         res.send(users)
                 })
 
                 //Get Order By Email
-                app.get('/order/:email', verifyJWT, async (req, res) => {
+                app.get('/order/:email', async (req, res) => {
                         const email = req.query.email;
                         const query = {
                                 email: email
