@@ -120,7 +120,7 @@ async function run() {
 
                 })
 
-                app.get('/user/admin/:email', async (req, res) => {
+                app.put('/user/admin/:email', async (req, res) => {
                         const email = req.params.email;
                         const filter = {
                                 email: email
