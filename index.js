@@ -116,7 +116,7 @@ async function run() {
                         const query = {
                                 email: email
                         };
-                        const cursor = await userCollection.find(query);
+                        const cursor = await userCollection.findOne(query);
                         const user = await cursor.toArray();
                         res.send(user);
                 })
