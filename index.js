@@ -52,7 +52,7 @@ async function run() {
                 }
 
                 //Get All Product
-                app.get('/products', verifyJWT, async (req, res) => {
+                app.get('/products', async (req, res) => {
                         const query = {};
                         const cursor = productCollection.find(query);
                         const products = await cursor.toArray();
@@ -77,7 +77,7 @@ async function run() {
                 })
 
                 //Get Order By Email
-                app.get('/order', async (req, res) => {
+                app.get('/order', verifyJWT, async (req, res) => {
                         const email = req.query.email;
                         const query = {
                                 email: email
