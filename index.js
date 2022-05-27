@@ -27,6 +27,7 @@ async function run() {
                 await client.connect();
                 const productCollection = client.db('ownproduct').collection('all_products');
                 const orderCollection = client.db('ownproduct').collection('orders');
+                const reviewCollection = client.db('ownproduct').collection('reviews');
 
                 app.get('/products', async (req, res) => {
                         const query = {};
@@ -61,13 +62,20 @@ async function run() {
                         res.send(order);
                 })
 
-                //Delete
+                //Delete Ordeer Item
                 app.delete('/orders/:id', async (req, res) => {
                         const id = req.params.id;
                         const query = {
                                 _id: ObjectId(id)
                         }
                         const result = await orderCollection.deleteOne(query);
+                        res.send(result)
+                })
+
+                //AddReview
+                app.post('/review', async (req, res) => {
+                        const review = req.body;
+                        const result = await reviewCollection.insertOne(review);
                         res.send(result)
                 })
 
