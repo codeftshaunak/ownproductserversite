@@ -120,12 +120,26 @@ async function run() {
 
                 })
 
-                app.get('/admin/user/email')
+                app.get('/admin/user/email', async (req, res) => {
+                        const email = req.params.email;
+                        const filter = {
+                                email: email
+                        }
+                        const updateDoc = {
+                                $set: {
+                                        role: 'admin'
+                                },
+                        }
+                        const result = await userCollection.updateOne(filter, updateDoc, options)
+                        res.send(result)
+                })
 
                 app.get('/user', async (req, res) => {
                         const users = await userCollection.find().toArray();
                         res.send(users)
                 })
+
+
 
         } finally {}
 }
