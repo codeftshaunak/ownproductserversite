@@ -110,7 +110,7 @@ async function run() {
                 });
 
                 //Method For Get User
-                app.get('/user', async (req, res) => {
+                app.get('/user/:email', async (req, res) => {
                         const email = req.query.email;
                         const query = {
                                 email: email
