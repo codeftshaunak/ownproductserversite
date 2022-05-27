@@ -34,21 +34,22 @@ async function run() {
 
                 const verifyJWT = (req, res, next) => {
                         const authHeader = req.headers.authorization;
+                        console.log(authHeader)
                         if (!authHeader) {
                                 return res.status(401).send({
                                         message: "UnAuthorized Access"
                                 })
                         }
-                        const token = authHeader.split(' ')[1];
-                        jwt.verify(token, process.env.DB_ACCESS_TOKEN, function (err, decoded) {
-                                if (err) {
-                                        return res.status(403).send({
-                                                message: 'Forbidden access'
-                                        })
-                                }
-                                req.decoded = decoded;
-                        })
-                        next();
+                        // const token = authHeader.split(' ')[1];
+                        // jwt.verify(token, process.env.DB_ACCESS_TOKEN, function (err, decoded) {
+                        //         if (err) {
+                        //                 return res.status(403).send({
+                        //                         message: 'Forbidden access'
+                        //                 })
+                        //         }
+                        //         req.decoded = decoded;
+                        // })
+                        // next();
                 }
 
                 //Get All Product
