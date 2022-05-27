@@ -28,6 +28,7 @@ async function run() {
                 const productCollection = client.db('ownproduct').collection('all_products');
                 const orderCollection = client.db('ownproduct').collection('orders');
                 const reviewCollection = client.db('ownproduct').collection('reviews');
+                const userCollection = client.db('ownproduct').collection('users');
 
                 app.get('/products', async (req, res) => {
                         const query = {};
@@ -78,6 +79,23 @@ async function run() {
                         const result = await reviewCollection.insertOne(review);
                         res.send(result)
                 })
+
+                //Put method for user
+                app.put('/user/:email', async (req, res) => {
+                        const email = req.params.email;
+                        const user = req.body;
+                        const filter = {
+                                email: email
+                        }
+                        const options = {
+                                upsert: true
+                        }
+                        const updateDoc = {
+                                $set: user,
+                        }
+                        const result = await userCollection.updateOne(filter, updateDoc, options)
+                        res.send(result)
+                });
 
         } finally {}
 }
