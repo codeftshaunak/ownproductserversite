@@ -31,6 +31,16 @@ async function run() {
                 const reviewCollection = client.db('ownproduct').collection('reviews');
                 const userCollection = client.db('ownproduct').collection('users');
 
+
+                const verifyJWT = (req, res, next) => {
+                        const authHeader = req.headers.authorization;
+                        if (!authHeader) {
+                                return res.status(401).send({
+                                        message: "UnAuthorized Access"
+                                })
+                        }
+                }
+
                 //Get All Product
                 app.get('/products', async (req, res) => {
                         const query = {};
@@ -134,7 +144,7 @@ async function run() {
                         res.send(result)
                 })
 
-                app.get('/user', async (req, res) => {
+                app.get('/user', verifyJWT, async (req, res) => {
                         const users = await userCollection.find().toArray();
                         res.send(users)
                 })
