@@ -76,11 +76,6 @@ async function run() {
                         res.send(result)
                 })
 
-                //Get All Order
-                app.get('/order', async (req, res) => {
-                        const users = await userCollection.find().toArray();
-                        res.send(users)
-                })
 
                 //Get Order By Email
                 app.get('/order', async (req, res) => {
