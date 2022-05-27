@@ -112,10 +112,11 @@ async function run() {
                 //Method For Get User
                 app.get('/user/:email', async (req, res) => {
                         const email = req.query.email;
+
                         const query = {
                                 email: email
                         };
-                        const cursor = userCollection.find(query);
+                        const cursor = await userCollection.find(query);
                         const user = await cursor.toArray();
                         res.send(user);
                 })
