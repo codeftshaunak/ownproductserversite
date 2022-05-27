@@ -40,16 +40,16 @@ async function run() {
                                         message: "UnAuthorized Access"
                                 })
                         }
-                        // const token = authHeader.split(' ')[1];
-                        // jwt.verify(token, process.env.DB_ACCESS_TOKEN, function (err, decoded) {
-                        //         if (err) {
-                        //                 return res.status(403).send({
-                        //                         message: 'Forbidden access'
-                        //                 })
-                        //         }
-                        //         req.decoded = decoded;
-                        // })
-                        // next();
+                        const token = authHeader.split(' ')[1];
+                        jwt.verify(token, process.env.DB_ACCESS_TOKEN, function (err, decoded) {
+                                if (err) {
+                                        return res.status(403).send({
+                                                message: 'Forbidden access'
+                                        })
+                                }
+                                req.decoded = decoded;
+                        })
+                        next();
                 }
 
                 //Get All Product
