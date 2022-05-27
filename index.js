@@ -120,6 +120,13 @@ async function run() {
 
                 })
 
+                app.get('/admin/user/email')
+
+                app.get('/user', (req, res) => {
+                        const users = await userCollection.find().toArray();
+                        res.send(users)
+                })
+
         } finally {}
 }
 run().catch(console.dir);
