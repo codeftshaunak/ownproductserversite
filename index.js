@@ -83,7 +83,7 @@ async function run() {
                 })
 
                 //Get Order By Email
-                app.get('/order/:email', async (req, res) => {
+                app.get('/order', async (req, res) => {
                         const email = req.query.email;
                         const query = {
                                 email: email
