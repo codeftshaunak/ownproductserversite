@@ -31,6 +31,7 @@ async function run() {
                 const reviewCollection = client.db('ownproduct').collection('reviews');
                 const userCollection = client.db('ownproduct').collection('users');
 
+                //Get All Product
                 app.get('/products', async (req, res) => {
                         const query = {};
                         const cursor = productCollection.find(query);
@@ -38,6 +39,7 @@ async function run() {
                         res.send(products);
                 })
 
+                //Get Product By Id
                 app.get('/product/:id', async (req, res) => {
                         const id = req.params.id;
                         const query = {
@@ -47,13 +49,14 @@ async function run() {
                         res.send(product);
                 })
 
-                //Post
+                //Add To Order In DB
                 app.post('/order', async (req, res) => {
                         const orders = req.body;
                         const result = await orderCollection.insertOne(orders);
                         res.send(result)
                 })
 
+                //Get Order By Email
                 app.get('/order', async (req, res) => {
                         const email = req.query.email;
                         const query = {
@@ -64,7 +67,7 @@ async function run() {
                         res.send(order);
                 })
 
-                //Delete Ordeer Item
+                //Delete One Ordeer Item
                 app.delete('/orders/:id', async (req, res) => {
                         const id = req.params.id;
                         const query = {
@@ -74,14 +77,14 @@ async function run() {
                         res.send(result)
                 })
 
-                //AddReview
+                //AddReview In DB
                 app.post('/review', async (req, res) => {
                         const review = req.body;
                         const result = await reviewCollection.insertOne(review);
                         res.send(result)
                 })
 
-                //Put method for user
+                //Put Method For Update User If Available Otherwis CreateOne With JWT(Accesstoken)
                 app.put('/user/:email', async (req, res) => {
                         const email = req.params.email;
                         const user = req.body;
@@ -105,6 +108,17 @@ async function run() {
                                 accessToken: token
                         })
                 });
+
+                //Method For Get User
+                app.get('/user', async (req, res) => {
+                        const email = req.query.email;
+                        const query = {
+                                email: email
+                        };
+                        const cursor = userCollection.find(query);
+                        const user = await cursor.toArray();
+                        res.send(user);
+                })
 
         } finally {}
 }
