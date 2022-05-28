@@ -146,9 +146,7 @@ async function run() {
         email: email,
       });
       const isAdmin = user.role === "admin";
-      res.send({
-        admin: isAdmin,
-      });
+      res.send({ admin: isAdmin });
     });
 
     app.put("/user/admin/:email", verifyJWT, async (req, res) => {
