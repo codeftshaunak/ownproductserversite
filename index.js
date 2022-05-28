@@ -141,7 +141,7 @@ async function run() {
 
                 })
 
-                app.put('/user/admin/:email', verifyJWT, async (req, res) => {
+                app.put('/user/admin/:email', async (req, res) => {
                         const email = req.params.email;
                         const requester = req.decoded.email;
                         const requesterAccount = await userCollection.findOne({
