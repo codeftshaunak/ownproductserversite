@@ -184,6 +184,13 @@ async function run() {
                         res.send(users)
                 })
 
+                //Post Method For Add Product Into DB
+                app.post('/addproduct', async (req, res) => {
+                        const newData = req.body;
+                        const result = await productCollection.insertOne(newData)
+                        res.send(result)
+                });
+
 
 
         } finally {}
