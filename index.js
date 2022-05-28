@@ -143,27 +143,16 @@ async function run() {
 
                 app.put('/user/admin/:email', async (req, res) => {
                         const email = req.params.email;
-                        const requester = req.decoded.email;
-                        const requesterAccount = await userCollection.findOne({
-                                email: requester
-                        });
-                        if (requesterAccount.role === 'admin') {
-                                const filter = {
-                                        email: email
-                                }
-                                const updateDoc = {
-                                        $set: {
-                                                role: 'admin'
-                                        },
-                                }
-                                const result = await userCollection.updateOne(filter, updateDoc)
-                                res.send(result)
-                        } else {
-                                res.status(403).send({
-                                        message: 'forbidden'
-                                })
+                        const filter = {
+                                email: email
                         }
-
+                        const updateDoc = {
+                                $set: {
+                                        role: 'admin'
+                                },
+                        }
+                        const result = await userCollection.updateOne(filter, updateDoc)
+                        res.send(result)
                 })
 
                 //Get All Users
