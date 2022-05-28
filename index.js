@@ -47,8 +47,8 @@ async function run() {
                                         })
                                 }
                                 req.decoded = decoded;
+                                next();
                         })
-                        next();
                 }
 
                 //Get All Product
@@ -141,7 +141,7 @@ async function run() {
 
                 })
 
-                app.put('/user/admin/:email', async (req, res) => {
+                app.put('/user/admin/:email', verifyJWT, async (req, res) => {
                         const email = req.params.email;
                         const filter = {
                                 email: email
